@@ -1,22 +1,21 @@
 import json
 import fasttext
-# import os
 import pandas as pd
-# import numpy as np
 
+# import os
 # os.chdir("/Users/a.orzikulov/Desktop/GitHub/Integro")  ################
 
 import util   ################
 
 
 # util.main()  ################
-# file_path = .handler  ################
+# file_path = "output-25-8-2021.json"  ################
 
 
 def main(file_path):
     with open(file_path, "r", encoding="UTF-8") as file:   ################
         data = json.load(file)
-    
+
     LANGUAGE_MODEL_PATH = '../lid.176.bin'
     model = fasttext.load_model(LANGUAGE_MODEL_PATH)
     russian_texts = []
@@ -41,7 +40,7 @@ def main(file_path):
                             fixed_message += util.TRANSLATOR[character]
                         else:
                             fixed_message += character
-    
+
                     uzbek_texts.append([channel, post_id, date, views, fixed_message])
 
     util.log('info', f"The number of Uzbek posts is {len(uzbek_texts)}")
@@ -55,6 +54,8 @@ def main(file_path):
         data_frame.to_excel('russian.xlsx', header=header, index=False)
 
     util.log('success', "Two Excel files have been created.")
+
+# import numpy as np
 
 # with open("../uzbek_texts.txt", "w", encoding="UTF-8") as file:
 #     for text in uzbek_texts:
